@@ -15,24 +15,15 @@ public class Player {
         switch (characterMenu()){
                 //Samuray case
             case 1:
-                setCharacterName("Samuray");
-                setDamage(5);
-                setHealth(21);
-                setMoney(15);
+                initPlayer("Samuray",5,21,15);
                 break;
                 //Okçu case
             case 2:
-                setCharacterName("Okçu");
-                setDamage(7);
-                setHealth(18);
-                setMoney(20);
+                initPlayer("Okçu",7,18,20);
                 break;
                 //Asker case
             case 3:
-                setCharacterName("Asker");
-                setDamage(8);
-                setHealth(24);
-                setMoney(5);
+                initPlayer("Asker",8,24,5);
                 break;
                 //Default case
             default:
@@ -59,6 +50,15 @@ public class Player {
             }
             return charId;
     }
+
+    public void initPlayer(String characterName, int damage, int health, int money){
+        setCharacterName(characterName);
+        setDamage(damage);
+        setHealth(health);
+        setMoney(money);
+    }
+
+
     public void writeCharacterStats(){
         System.out.println("Senin Adın: " + getName() + "\n"
                 + getCharacterName() +"\t Hasar:" + getDamage()
