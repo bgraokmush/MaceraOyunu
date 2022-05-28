@@ -11,6 +11,7 @@ public class Game {
         System.out.println("Macera Oyununa Hoş Geldin! \n" +
                 "Oyna Başlamadan Önce Adını Girmelisin: ");
         String playerName = scanner.nextLine();
-        Player player = new Player(playerName);
+        player = new Player(playerName);
+        player.selectCharacter();
     }
 }
