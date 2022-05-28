@@ -3,7 +3,7 @@ package bugra;
 import java.util.Scanner;
 
 public class Player {
-    private int damage,health,money;
+    private int damage,health,money, realHealth;
     private String name, characterName;
     private Inventory inventory;
     Scanner scanner = new Scanner(System.in);
@@ -35,6 +35,7 @@ public class Player {
         System.out.println("Karakter Oluşturuldu!");
         writeCharacterStats();
     }
+
     public int characterMenu(){
         System.out.println("Tekrar hoş geldin " + getName() + "! \n" +
                 "Lütfen bir karakter Seç: \n" +
@@ -56,8 +57,8 @@ public class Player {
         setDamage(damage);
         setHealth(health);
         setMoney(money);
+        setRealHealth(health);
     }
-
 
     public void writeCharacterStats(){
         System.out.println("Senin Adın: " + getName() + "\n"
@@ -111,5 +112,13 @@ public class Player {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+
+    public int getRealHealth() {
+        return realHealth;
+    }
+
+    public void setRealHealth(int realHealth) {
+        this.realHealth = realHealth;
     }
 }
