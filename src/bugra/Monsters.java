@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Monsters {
     private String name;
-    private int damage,award, health, maxCount;
+    private int damage,award, health, maxCount, realHealth;
 
 
     public Monsters(String name, int damage, int award, int health, int maxCount) {
@@ -13,12 +13,22 @@ public class Monsters {
         this.award = award;
         this.health = health;
         this.maxCount = maxCount;
+        setRealHealth(health);
+
     }
 
     public int monsterCount(){
         Random r = new Random();
         return r.nextInt(this.maxCount) + 1;
     }
+    public void monsterStats(){
+        System.out.println("----------------------------------------");
+        System.out.println(
+                this.getName() + " değerleri: \n" +
+                        "Can: " + this.getHealth() +" Hasar: " + this.getDamage() + " Ödül: " + this.getAward());
+    }
+
+
 
     public String getName() {
         return name;
@@ -58,5 +68,13 @@ public class Monsters {
 
     public void setMaxCount(int maxCount) {
         this.maxCount = maxCount;
+    }
+
+    public int getRealHealth() {
+        return realHealth;
+    }
+
+    public void setRealHealth(int realHealth) {
+        this.realHealth = realHealth;
     }
 }

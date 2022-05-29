@@ -1,11 +1,13 @@
 package bugra;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public abstract class Location {
     protected Player player;
     protected String name;
     Scanner scanner = new Scanner(System.in);
+    Random random = new Random();
     Location(Player player){
         this.player = player;
     }

@@ -1,6 +1,6 @@
 package bugra;
 
-public abstract class BattleLocation  extends Location{
+public abstract class BattleLocation  extends Location {
     protected Monsters monsters;
 
     public BattleLocation(Player player, String name, Monsters monsters) {
@@ -10,23 +10,24 @@ public abstract class BattleLocation  extends Location{
     }
 
     public boolean getLocation(){
-        int monsterCount = monsters.monsterCount();
         System.out.println("");
         System.out.println("----------------------------------------");
         System.out.println("");
         System.out.println(
                 "Şuan " + this.getName() + " bölgesindesin. \n" +
-                monsterCount +  " adet " + monsters.getName() + "bulunuyor! \n" +
+                (monsters.monsterCount()+1) +  " adet " + monsters.getName() + "bulunuyor! \n" +
                 "Ne yapacaksın? \n" +
                 "(S)Savaş - (k)Kaç");
         char selectCase = scanner.nextLine().charAt(0);
 
         if(selectCase == 'S' || selectCase == 's'){
-            if(combat(monsterCount)){
+            if(combat(monsters.monsterCount())){
                 System.out.println(this.getName() + " bölgesindeki tüm düşmanları yendiniz!");
+
                 return true;
-            }else{
-                System.out.println("Öldünüz");
+            }
+            if (player.getHealth() <= 0) {
+                System.out.println("Öldünüz!");
                 return false;
             }
         }
@@ -36,31 +37,63 @@ public abstract class BattleLocation  extends Location{
     public boolean combat(int monsterCount){
 
         for (int i = 1; i <= monsterCount; i++) {
+            //Her öldürülen canavardan sonra canın sıfırlanması için
+            monsters.setHealth(monsters.getRealHealth());
+
             System.out.println("----------------------------------------");
             System.out.println("");
             System.out.println(i + "." + monsters.getName() +  "ile savaşıyorsun \n");
-            playerStats();
-            monsterStats();
+            player.writeCharacterStats();
+            monsters.monsterStats();
+            while (player.getHealth()>0 && monsters.getHealth()>0){
+                System.out.println("(V) vur - (K) kaç");
+                char selectCase = scanner.nextLine().charAt(0);
+
+                if(selectCase == 'V' || selectCase == 'v'){
+
+                    System.out.println("Siz vurdunuz!");
+                    //eğer silahınız var ise rastgele oranla vuruş yapıyorsun
+                    if(player.getInventory().getWeaponDamage()>0){
+                        monsters.setHealth(monsters.getHealth()-(player.getDamage()+ random.nextInt(player.getInventory().getWeaponDamage())+1 ));
+                    }else{
+                        monsters.setHealth(monsters.getHealth()-player.getDamage());
+                    }
+                    System.out.println(monsters.getName() + " canı: " +monsters.getHealth() + "\n");
+
+                    afterHit();
+                    if(monsters.getHealth() > 0) {
+
+                        System.out.println(monsters.getName() + " vurdu!");
+                        //eğer kalkanın var ise rastgele oranla korunma sağlıyorsun
+
+                        if(player.getInventory().getArmorAvoid() >0){
+                            player.setHealth(player.getHealth()- (monsters.getDamage() - random.nextInt(player.getInventory().getArmorAvoid()) +1 ));
+                        }else{
+                            player.setHealth(player.getHealth()- monsters.getDamage());
+                        }
+                        System.out.println("Sizin Canınız: " + player.getHealth());
+
+                        afterHit();
+                    }
+                }else{
+                    break;
+                }
+            }
+            if (monsters.getHealth() <= 0 && player.getHealth()>0){
+                System.out.println(i + "." + monsters.getName() + " öldü! \n" +
+                        "Şu kadar para kazandın: " + monsters.getAward());
+                player.setMoney(monsters.getAward() + player.getMoney());
+                System.out.println("Güncel bakiyen: " + player.getMoney());
+
+
+            }
         }
 
         return true;
     }
-    public void playerStats(){
-        System.out.println(
-                player.getName() + " oyuncusunun değerleri: \n" +
-                "Karakter: " + player.getCharacterName() +"-> Can: " + player.getHealth() + "Hasar: " + player.getDamage() + " Bakiye: " + player.getMoney());
-        if (player.getInventory().getWeaponDamage() > 0){
-            System.out.println("Silah: " + player.getInventory().getWeaponName());
-        }
-        if (player.getInventory().getArmorAvoid() > 0){
-            System.out.println("Zırh: " + player.getInventory().getArmorName());
-        }
-    }
-    public void monsterStats(){
-        System.out.println("----------------------------------------");
-        System.out.println(
-                monsters.getName() + " değerleri: \n" +
-                "Can: " + monsters.getHealth() +" Hasar: " + monsters.getDamage() + " Ödül: " + monsters.getAward());
+
+    public void afterHit(){
+
     }
 
 }
