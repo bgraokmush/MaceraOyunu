@@ -47,7 +47,7 @@ public class Game {
                     location = new SafeHouse(player);
                     break;
             }
-            if(location.getLocation()){
+            if(location.getLocation() == false){
                 System.out.println("Oyun bitti!");
                 break;
             }

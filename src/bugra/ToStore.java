@@ -36,7 +36,6 @@ public class ToStore extends NormalLocation{
     }
 
     public int weaponMenu(){
-        System.out.println("");
         System.out.println("----------------------------------------");
         System.out.println("");
         System.out.println("Satın alacağınız Silahı seçin: \n" +
@@ -70,24 +69,28 @@ public class ToStore extends NormalLocation{
                 price = 45;
                 break;
             case 4:
+                System.out.println("Çıkış Yapılıyor!");
                 getLocation();
+                break;
             default:
                 System.out.println("Lütfen Geçerli bir rakam girin.");
                 weaponMenu();
                 break;
         }
-        if(player.getMoney() > price) {
-            player.getInventory().setWeaponDamage(damage);
-            player.getInventory().setWeaponName(weaponName);
-            player.setMoney(player.getMoney()-price);
+        if(price>0){
+            if(player.getMoney() > price) {
+                player.getInventory().setWeaponDamage(damage);
+                player.getInventory().setWeaponName(weaponName);
+                player.setMoney(player.getMoney()-price);
 
-            System.out.println(weaponName + " satın Alımı Gerçekleşti \n" +
-                    "Önceki hasarınız: " + (player.getDamage()-player.getInventory().getWeaponDamage()) +"\n" +
-                    "Yeni hasarınız: " + (player.getDamage()));
-            System.out.println("Kalan para: " + player.getMoney());
-        }else{
-            System.out.println("Bakiye Yetersiz!");
-            weaponMenu();
+                System.out.println(weaponName + " satın Alımı Gerçekleşti \n" +
+                        "Önceki hasarınız: " + (player.getDamage()-player.getInventory().getWeaponDamage()) +"\n" +
+                        "Yeni hasarınız: " + (player.getDamage()));
+                System.out.println("Kalan para: " + player.getMoney());
+            }else{
+                System.out.println("Bakiye Yetersiz!");
+                weaponMenu();
+            }
         }
 
 
