@@ -26,6 +26,8 @@ public class ToStore extends NormalLocation{
                 buyWeapon(selItemID);
                 break;
             case 2:
+                selItemID = armorMenu();
+                buyArmor(selItemID);
                 break;
             case 3:
                 break;
@@ -78,7 +80,7 @@ public class ToStore extends NormalLocation{
                 break;
         }
         if(price>0){
-            if(player.getMoney() > price) {
+            if(player.getMoney() >= price) {
                 player.getInventory().setWeaponDamage(damage);
                 player.getInventory().setWeaponName(weaponName);
                 player.setMoney(player.getMoney()-price);
@@ -97,8 +99,65 @@ public class ToStore extends NormalLocation{
             }
         }
 
+    }
+
+    public int armorMenu(){
+        System.out.println("----------------------------------------");
+        System.out.println("");
+        System.out.println("Satın alacağınız Silahı seçin: \n" +
+                "(1)Hafif Zırh  -> \tÜcret:15 \tKoruman:1 \n" +
+                "(2)Orta Zırh   -> \tÜcret:25 \tKoruma:3 \n" +
+                "(3)Ağır Zırh   -> \tÜcret:40 \tKoruma:5 \n" +
+                "(4) Çıkış...");
+        System.out.println("Seçiminiz: ");
+        int selArmorID = scanner.nextInt();
+        return selArmorID;
+    }
 
 
+    public void buyArmor(int itemID){
+        int armor = 0, price=0;
+        String armorName =null;
+
+        switch (itemID){
+            case 1:
+                armor = 1;
+                armorName = "Hafif Zırh";
+                price = 15;
+                break;
+            case 2:
+                armor = 3;
+                armorName = "Orta Zırh";
+                price = 25;
+                break;
+            case 3:
+                armor = 5;
+                armorName = "Ağır Zırh";
+                price = 40;
+                break;
+            case 4:
+                System.out.println("Çıkış Yapılıyor!");
+                getLocation();
+                break;
+            default:
+                System.out.println("Lütfen Geçerli bir rakam girin.");
+                weaponMenu();
+                break;
+        }
+        if(price>0){
+            if(player.getMoney() >= price) {
+                player.getInventory().setArmorName(armorName);
+                player.getInventory().setArmorAvoid(armor);
+                player.setMoney(player.getMoney()-price);
+                System.out.println(armorName + " satın Alımı Gerçekleşti \n" +
+                        "Yeni Korumanız: " + player.getInventory().getArmorAvoid());
+                System.out.println("Kalan para: " + player.getMoney());
+
+            }else{
+                System.out.println("Bakiye Yetersiz!");
+                weaponMenu();
+            }
+        }
 
     }
 }
