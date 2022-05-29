@@ -9,6 +9,7 @@ public class Player {
     Scanner scanner = new Scanner(System.in);
     public Player(String name) {
         this.name = name;
+        this.inventory = new Inventory();
     }
 
     public void selectCharacter(){
