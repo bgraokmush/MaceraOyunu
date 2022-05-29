@@ -28,10 +28,11 @@ public class Game {
                             "(3)Orman      -> Burada Vampir olma ihtimali var!\n" +
                             "(4)Nehir      -> Burada Ayı olma ihtimali var!\n" +
                             "(5)Mağaza     -> Silah veya Zırh satın alabilirsiniz \n" +
+                            "(6)Çıkış... \n"+
                             "Gitmek istediğiniz yeri seçin: ");
 
             int selectLocation = scanner.nextInt();
-            while (selectLocation<1 || selectLocation>5){
+            while (selectLocation<1 || selectLocation>6){
                 System.out.println("Geçerli bir giriş yapmalısın!");
                 selectLocation = scanner.nextInt();
             }
@@ -51,14 +52,26 @@ public class Game {
                 case 5:
                     location = new ToStore(player);
                     break;
+                case 6:
+                    System.out.println("Oyunu Kapatmak istediğine emin misin? \n (Y) (N)");
+                    char selection = scanner.next().charAt(0);
+
+                        if(selection == 'Y' || selection == 'y'){
+                            System.exit(1);
+                        }
+                        else if(selection == 'N' || selection == 'n'){
+                            start();
+                        }
+
                 default:
                     location = new SafeHouse(player);
                     break;
             }
-            if(location.getLocation() == false){
-                System.out.println("Oyun bitti!");
+            if (!location.getLocation()) {
+                System.out.println("Oyun Bitti !");
                 break;
             }
+
         }
     }
 }
