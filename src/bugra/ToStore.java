@@ -56,7 +56,7 @@ public class ToStore extends NormalLocation{
             case 1:
                 damage = 2;
                 weaponName = "Tabanca";
-                price = 25;
+                price = 5;
                 break;
             case 2:
                 damage = 3;
@@ -84,9 +84,13 @@ public class ToStore extends NormalLocation{
                 player.setMoney(player.getMoney()-price);
 
                 System.out.println(weaponName + " satın Alımı Gerçekleşti \n" +
-                        "Önceki hasarınız: " + (player.getDamage()-player.getInventory().getWeaponDamage()) +"\n" +
-                        "Yeni hasarınız: " + (player.getDamage()));
+                        "Önceki hasarınız: " + player.getDamage() +"\n" +
+                        "Yeni hasarınız: " + player.getTotalDamage() );
                 System.out.println("Kalan para: " + player.getMoney());
+
+                //Geçerli hasarın silah aldıktan sonra toplanmasını sağlıyor
+                player.setDamage(player.getTotalDamage());
+
             }else{
                 System.out.println("Bakiye Yetersiz!");
                 weaponMenu();

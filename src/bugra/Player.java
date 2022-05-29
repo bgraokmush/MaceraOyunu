@@ -52,6 +52,9 @@ public class Player {
             }
             return charId;
     }
+    public int getTotalDamage(){
+        return this.getDamage() + this.getInventory().getWeaponDamage();
+    }
 
     public void initPlayer(String characterName, int damage, int health, int money){
         setCharacterName(characterName);
