@@ -40,6 +40,7 @@ public class ToStore extends NormalLocation{
     public int weaponMenu(){
         System.out.println("----------------------------------------");
         System.out.println("");
+        System.out.println("Şuanki bakiyeniz: " + player.getMoney());
         System.out.println("Satın alacağınız Silahı seçin: \n" +
                            "(1)Tabanca  -> \tÜcret:25 \tHasar:2 \n" +
                            "(2)Kılıç    -> \tÜcret:35 \tHasar:3 \n" +
@@ -104,6 +105,7 @@ public class ToStore extends NormalLocation{
     public int armorMenu(){
         System.out.println("----------------------------------------");
         System.out.println("");
+        System.out.println("Şuanki bakiyeniz: " + player.getMoney());
         System.out.println("Satın alacağınız Silahı seçin: \n" +
                 "(1)Hafif Zırh  -> \tÜcret:15 \tKoruman:1 \n" +
                 "(2)Orta Zırh   -> \tÜcret:25 \tKoruma:3 \n" +

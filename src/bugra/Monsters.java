@@ -1,5 +1,7 @@
 package bugra;
 
+import java.util.Random;
+
 public class Monsters {
     private String name;
     private int damage,award, health, maxCount;
@@ -11,6 +13,11 @@ public class Monsters {
         this.award = award;
         this.health = health;
         this.maxCount = maxCount;
+    }
+
+    public int monsterCount(){
+        Random r = new Random();
+        return r.nextInt(this.maxCount) + 1;
     }
 
     public String getName() {
